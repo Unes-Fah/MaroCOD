@@ -1,0 +1,2127 @@
+{
+  "info": {
+    "_postman_id": "318a5886-1d8c-4ddc-82c1-5b2879d6382d",
+    "name": "MaroCOD API",
+    "description": "RESTFUL headless and stateless API for managing cash on delivery (COD) order logistics\n\nTo test the API run \"php artisan migrate:fresh --seed\" and \"php artisan serve\" commands beforehand",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51254530"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {\r",
+                  "    pm.collectionVariables.set(\"token\", pm.response.json().token);\r",
+                  "}\r",
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Jane\",\r\n  \"store_name\": \"Jane's Shop\",\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"password\": \"secret123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "register"
+              ]
+            },
+            "description": "Registers a new merchant and returns an authentication token"
+          },
+          "response": [
+            {
+              "name": "Register",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Jane\",\r\n  \"store_name\": \"Jane's Shop\",\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"password\": \"secret123\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/register",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 12:40:00 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"merchant\": {\n        \"name\": \"Jane\",\n        \"store_name\": \"Jane's Shop\",\n        \"email\": \"Amari.Bailey25@gmail.com\",\n        \"updated_at\": \"2026-11-24T12:39:59.000000Z\",\n        \"created_at\": \"2026-11-24T12:39:59.000000Z\",\n        \"id\": 5\n    },\n    \"token\": \"4|2YZTJM6roZmjaCmjqMHaQbjxMV93aOnJ41lpqSuS0c1d6f90\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {\r",
+                  "    pm.collectionVariables.set(\"token\", pm.response.json().token);\r",
+                  "}\r",
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"demo@marocod.test\",\r\n  \"password\": \"secret123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "login"
+              ]
+            },
+            "description": "Authenticates a merchant and returns a token using credentials in the body of the request\n\nExample { \"email\": \"demo@marocod.test\", \"password\": \"secret123\"}"
+          },
+          "response": [
+            {
+              "name": "Login",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"demo@marocod.test\",\r\n  \"password\": \"secret123\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/login",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 10:45:05 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"0\": 201,\n    \"merchant\": {\n        \"id\": 1,\n        \"name\": \"Demo Merchant\",\n        \"store_name\": \"Demo Store\",\n        \"email\": \"demo@marocod.test\",\n        \"created_at\": \"2026-11-24T10:42:54.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:54.000000Z\"\n    },\n    \"token\": \"1|xxxxxxxxxxxxxxxx\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Carriers",
+      "item": [
+        {
+          "name": "All_Carriers",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/carriers",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "carriers"
+              ]
+            },
+            "description": "Returns all the carriers and their carrier rates"
+          },
+          "response": [
+            {
+              "name": "All_Carriers",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/carriers",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "carriers"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 12:34:28 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Amana\",\n        \"created_at\": \"2026-11-24T12:29:36.000000Z\",\n        \"updated_at\": \"2026-11-24T12:29:36.000000Z\",\n        \"rates\": [\n            {\n                \"id\": 6,\n                \"carrier_id\": 1,\n                \"city\": \"Agadir\",\n                \"price\": \"45.00\",\n                \"created_at\": \"2026-11-24T12:29:36.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:36.000000Z\"\n            },\n            {\n                \"id\": 1,\n                \"carrier_id\": 1,\n                \"city\": \"Casablanca\",\n                \"price\": \"35.00\",\n                \"created_at\": \"2026-11-24T12:29:36.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:36.000000Z\"\n            },\n            {\n                \"id\": 5,\n                \"carrier_id\": 1,\n                \"city\": \"Fes\",\n                \"price\": \"40.00\",\n                \"created_at\": \"2026-11-24T12:29:36.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:36.000000Z\"\n            },\n            {\n                \"id\": 8,\n                \"carrier_id\": 1,\n                \"city\": \"Laayoune\",\n                \"price\": \"60.00\",\n                \"created_at\": \"2026-11-24T12:29:36.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:36.000000Z\"\n            },\n            {\n                \"id\": 3,\n                \"carrier_id\": 1,\n                \"city\": \"Marrakech\",\n                \"price\": \"40.00\",\n                \"created_at\": \"2026-11-24T12:29:36.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:36.000000Z\"\n            },\n            {\n                \"id\": 7,\n                \"carrier_id\": 1,\n                \"city\": \"Oujda\",\n                \"price\": \"50.00\",\n                \"created_at\": \"2026-11-24T12:29:36.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:36.000000Z\"\n            },\n            {\n                \"id\": 2,\n                \"carrier_id\": 1,\n                \"city\": \"Rabat\",\n                \"price\": \"35.00\",\n                \"created_at\": \"2026-11-24T12:29:36.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:36.000000Z\"\n            },\n            {\n                \"id\": 4,\n                \"carrier_id\": 1,\n                \"city\": \"Tanger\",\n                \"price\": \"40.00\",\n                \"created_at\": \"2026-11-24T12:29:36.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:36.000000Z\"\n            }\n        ]\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Cathedis\",\n        \"created_at\": \"2026-11-24T12:29:37.000000Z\",\n        \"updated_at\": \"2026-11-24T12:29:37.000000Z\",\n        \"rates\": [\n            {\n                \"id\": 14,\n                \"carrier_id\": 2,\n                \"city\": \"Agadir\",\n                \"price\": \"40.00\",\n                \"created_at\": \"2026-11-24T12:29:37.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:37.000000Z\"\n            },\n            {\n                \"id\": 9,\n                \"carrier_id\": 2,\n                \"city\": \"Casablanca\",\n                \"price\": \"30.00\",\n                \"created_at\": \"2026-11-24T12:29:37.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:37.000000Z\"\n            },\n            {\n                \"id\": 13,\n                \"carrier_id\": 2,\n                \"city\": \"Fes\",\n                \"price\": \"35.00\",\n                \"created_at\": \"2026-11-24T12:29:37.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:37.000000Z\"\n            },\n            {\n                \"id\": 16,\n                \"carrier_id\": 2,\n                \"city\": \"Laayoune\",\n                \"price\": \"55.00\",\n                \"created_at\": \"2026-11-24T12:29:37.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:37.000000Z\"\n            },\n            {\n                \"id\": 11,\n                \"carrier_id\": 2,\n                \"city\": \"Marrakech\",\n                \"price\": \"35.00\",\n                \"created_at\": \"2026-11-24T12:29:37.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:37.000000Z\"\n            },\n            {\n                \"id\": 15,\n                \"carrier_id\": 2,\n                \"city\": \"Oujda\",\n                \"price\": \"45.00\",\n                \"created_at\": \"2026-11-24T12:29:37.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:37.000000Z\"\n            },\n            {\n                \"id\": 10,\n                \"carrier_id\": 2,\n                \"city\": \"Rabat\",\n                \"price\": \"30.00\",\n                \"created_at\": \"2026-11-24T12:29:37.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:37.000000Z\"\n            },\n            {\n                \"id\": 12,\n                \"carrier_id\": 2,\n                \"city\": \"Tanger\",\n                \"price\": \"35.00\",\n                \"created_at\": \"2026-11-24T12:29:37.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:37.000000Z\"\n            }\n        ]\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Ozone Express\",\n        \"created_at\": \"2026-11-24T12:29:37.000000Z\",\n        \"updated_at\": \"2026-11-24T12:29:37.000000Z\",\n        \"rates\": [\n            {\n                \"id\": 22,\n                \"carrier_id\": 3,\n                \"city\": \"Agadir\",\n                \"price\": \"40.00\",\n                \"created_at\": \"2026-11-24T12:29:38.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:38.000000Z\"\n            },\n            {\n                \"id\": 17,\n                \"carrier_id\": 3,\n                \"city\": \"Casablanca\",\n                \"price\": \"25.00\",\n                \"created_at\": \"2026-11-24T12:29:37.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:37.000000Z\"\n            },\n            {\n                \"id\": 21,\n                \"carrier_id\": 3,\n                \"city\": \"Fes\",\n                \"price\": \"35.00\",\n                \"created_at\": \"2026-11-24T12:29:38.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:38.000000Z\"\n            },\n            {\n                \"id\": 24,\n                \"carrier_id\": 3,\n                \"city\": \"Laayoune\",\n                \"price\": \"60.00\",\n                \"created_at\": \"2026-11-24T12:29:38.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:38.000000Z\"\n            },\n            {\n                \"id\": 19,\n                \"carrier_id\": 3,\n                \"city\": \"Marrakech\",\n                \"price\": \"35.00\",\n                \"created_at\": \"2026-11-24T12:29:37.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:37.000000Z\"\n            },\n            {\n                \"id\": 23,\n                \"carrier_id\": 3,\n                \"city\": \"Oujda\",\n                \"price\": \"45.00\",\n                \"created_at\": \"2026-11-24T12:29:38.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:38.000000Z\"\n            },\n            {\n                \"id\": 18,\n                \"carrier_id\": 3,\n                \"city\": \"Rabat\",\n                \"price\": \"30.00\",\n                \"created_at\": \"2026-11-24T12:29:37.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:37.000000Z\"\n            },\n            {\n                \"id\": 20,\n                \"carrier_id\": 3,\n                \"city\": \"Tanger\",\n                \"price\": \"35.00\",\n                \"created_at\": \"2026-11-24T12:29:37.000000Z\",\n                \"updated_at\": \"2026-11-24T12:29:37.000000Z\"\n            }\n        ]\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Unknown_Carrier",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 404\", () => pm.response.to.have.status(404));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/carriers/999",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "carriers",
+                "999"
+              ]
+            },
+            "description": "Returns a specific carrier and all its carrier rates by specifying the carrier id in the route's url:\n\n/carriers/{id}\n\nThis request is expected to trigger a 404 error simulating if a merchant attempts to request a carrier that does not exist"
+          },
+          "response": [
+            {
+              "name": "Unknown_Carrier",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/carriers/999",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "carriers",
+                    "999"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 12:55:38 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"No query results for model [App\\\\Models\\\\Carrier] 999\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Specific_Carrier",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/carriers/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "carriers",
+                "1"
+              ]
+            },
+            "description": "Returns a specific carrier and all its carrier rates by specifying the carrier id in the route's url:\n\n/carriers/{id}"
+          },
+          "response": [
+            {
+              "name": "Specific_Carrier",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/carriers/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "carriers",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 10:46:33 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"name\": \"Amana\",\n    \"created_at\": \"2026-11-24T10:42:51.000000Z\",\n    \"updated_at\": \"2026-11-24T10:42:51.000000Z\",\n    \"rates\": [\n        {\n            \"id\": 6,\n            \"carrier_id\": 1,\n            \"city\": \"Agadir\",\n            \"price\": \"45.00\",\n            \"created_at\": \"2026-11-24T10:42:52.000000Z\",\n            \"updated_at\": \"2026-11-24T10:42:52.000000Z\"\n        },\n        {\n            \"id\": 1,\n            \"carrier_id\": 1,\n            \"city\": \"Casablanca\",\n            \"price\": \"35.00\",\n            \"created_at\": \"2026-11-24T10:42:51.000000Z\",\n            \"updated_at\": \"2026-11-24T10:42:51.000000Z\"\n        },\n        {\n            \"id\": 5,\n            \"carrier_id\": 1,\n            \"city\": \"Fes\",\n            \"price\": \"40.00\",\n            \"created_at\": \"2026-11-24T10:42:52.000000Z\",\n            \"updated_at\": \"2026-11-24T10:42:52.000000Z\"\n        },\n        {\n            \"id\": 8,\n            \"carrier_id\": 1,\n            \"city\": \"Laayoune\",\n            \"price\": \"60.00\",\n            \"created_at\": \"2026-11-24T10:42:52.000000Z\",\n            \"updated_at\": \"2026-11-24T10:42:52.000000Z\"\n        },\n        {\n            \"id\": 3,\n            \"carrier_id\": 1,\n            \"city\": \"Marakech\",\n            \"price\": \"40.00\",\n            \"created_at\": \"2026-11-24T10:42:52.000000Z\",\n            \"updated_at\": \"2026-11-24T10:42:52.000000Z\"\n        },\n        {\n            \"id\": 7,\n            \"carrier_id\": 1,\n            \"city\": \"Oujda\",\n            \"price\": \"50.00\",\n            \"created_at\": \"2026-11-24T10:42:52.000000Z\",\n            \"updated_at\": \"2026-11-24T10:42:52.000000Z\"\n        },\n        {\n            \"id\": 2,\n            \"carrier_id\": 1,\n            \"city\": \"Rabat\",\n            \"price\": \"35.00\",\n            \"created_at\": \"2026-11-24T10:42:52.000000Z\",\n            \"updated_at\": \"2026-11-24T10:42:52.000000Z\"\n        },\n        {\n            \"id\": 4,\n            \"carrier_id\": 1,\n            \"city\": \"Tanger\",\n            \"price\": \"40.00\",\n            \"created_at\": \"2026-11-24T10:42:52.000000Z\",\n            \"updated_at\": \"2026-11-24T10:42:52.000000Z\"\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Cheapest_Carriers",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/carriers/cheapest?city=Casablanca",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "carriers",
+                "cheapest"
+              ],
+              "query": [
+                {
+                  "key": "city",
+                  "value": "Casablanca"
+                }
+              ]
+            },
+            "description": "Returns the cheapest carriers of every city\n\nThe endpoint supports a \"?city\" parameter as well if the user requests cheapest carriers that delivers to a specific city\n\nExample : /carriers/cheapest?city=Casablanca"
+          },
+          "response": [
+            {
+              "name": "Cheapest_Carriers",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/carriers/cheapest",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "carriers",
+                    "cheapest"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 12:35:33 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"city\": \"Agadir\",\n        \"carrier\": \"Cathedis\",\n        \"price\": \"40.00\"\n    },\n    {\n        \"city\": \"Agadir\",\n        \"carrier\": \"Ozone Express\",\n        \"price\": \"40.00\"\n    },\n    {\n        \"city\": \"Casablanca\",\n        \"carrier\": \"Ozone Express\",\n        \"price\": \"25.00\"\n    },\n    {\n        \"city\": \"Fes\",\n        \"carrier\": \"Cathedis\",\n        \"price\": \"35.00\"\n    },\n    {\n        \"city\": \"Fes\",\n        \"carrier\": \"Ozone Express\",\n        \"price\": \"35.00\"\n    },\n    {\n        \"city\": \"Laayoune\",\n        \"carrier\": \"Cathedis\",\n        \"price\": \"55.00\"\n    },\n    {\n        \"city\": \"Marrakech\",\n        \"carrier\": \"Cathedis\",\n        \"price\": \"35.00\"\n    },\n    {\n        \"city\": \"Marrakech\",\n        \"carrier\": \"Ozone Express\",\n        \"price\": \"35.00\"\n    },\n    {\n        \"city\": \"Oujda\",\n        \"carrier\": \"Cathedis\",\n        \"price\": \"45.00\"\n    },\n    {\n        \"city\": \"Oujda\",\n        \"carrier\": \"Ozone Express\",\n        \"price\": \"45.00\"\n    },\n    {\n        \"city\": \"Rabat\",\n        \"carrier\": \"Cathedis\",\n        \"price\": \"30.00\"\n    },\n    {\n        \"city\": \"Rabat\",\n        \"carrier\": \"Ozone Express\",\n        \"price\": \"30.00\"\n    },\n    {\n        \"city\": \"Tanger\",\n        \"carrier\": \"Cathedis\",\n        \"price\": \"35.00\"\n    },\n    {\n        \"city\": \"Tanger\",\n        \"carrier\": \"Ozone Express\",\n        \"price\": \"35.00\"\n    }\n]"
+            },
+            {
+              "name": "Cheapest_Carriers_In_City",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/carriers/cheapest?city=Casablanca",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "carriers",
+                    "cheapest"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": "Casablanca",
+                      "sortOrder": 0
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 12:35:50 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"city\": \"Casablanca\",\n        \"carrier\": \"Ozone Express\",\n        \"price\": \"25.00\"\n    }\n]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "All_Orders_No_Auth",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 401\", () => pm.response.to.have.status(401));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Returns all orders that the current authenticated merchant owns\n\nThis request has a \"no auth\" authorization type and it is expected to trigger a 401 error, simulating when an unauthenticated guest tries to access order records"
+          },
+          "response": [
+            {
+              "name": "All_Orders_No_Auth",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/orders",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 12:05:08 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Unauthenticated.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "All_Orders",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Returns all orders that the current authenticated merchant owns"
+          },
+          "response": [
+            {
+              "name": "All_Orders",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/orders",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 10:47:59 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"merchant_id\": 1,\n        \"customer_name\": \"Dr. Michale Mraz Sr.\",\n        \"customer_phone\": \"0677820045\",\n        \"city\": \"Fes\",\n        \"total_amount\": \"1082.04\",\n        \"status\": \"returned\",\n        \"tracking_number\": \"JR37984313\",\n        \"created_at\": \"2026-11-10T03:23:43.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:54.000000Z\",\n        \"carrier_id\": 2,\n        \"shipping_cost\": \"35.00\"\n    },\n    {\n        \"id\": 2,\n        \"merchant_id\": 1,\n        \"customer_name\": \"Amelia Hintz\",\n        \"customer_phone\": \"0607304851\",\n        \"city\": \"Tanger\",\n        \"total_amount\": \"144.88\",\n        \"status\": \"pending\",\n        \"tracking_number\": null,\n        \"created_at\": \"2026-08-28T20:18:18.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:54.000000Z\",\n        \"carrier_id\": null,\n        \"shipping_cost\": null\n    },\n    {\n        \"id\": 3,\n        \"merchant_id\": 1,\n        \"customer_name\": \"Prof. Eliane Senger DDS\",\n        \"customer_phone\": \"0677650431\",\n        \"city\": \"Laayoune\",\n        \"total_amount\": \"1373.91\",\n        \"status\": \"confirmed\",\n        \"tracking_number\": null,\n        \"created_at\": \"2026-10-29T21:37:04.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:54.000000Z\",\n        \"carrier_id\": null,\n        \"shipping_cost\": null\n    },\n    {\n        \"id\": 4,\n        \"merchant_id\": 1,\n        \"customer_name\": \"Rudolph Bednar\",\n        \"customer_phone\": \"0601858229\",\n        \"city\": \"Fes\",\n        \"total_amount\": \"583.45\",\n        \"status\": \"delivered\",\n        \"tracking_number\": \"SU73534699\",\n        \"created_at\": \"2026-09-25T21:33:52.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:54.000000Z\",\n        \"carrier_id\": 2,\n        \"shipping_cost\": \"35.00\"\n    },\n    {\n        \"id\": 5,\n        \"merchant_id\": 1,\n        \"customer_name\": \"Prof. Sofia Lubowitz\",\n        \"customer_phone\": \"0698021082\",\n        \"city\": \"Casablanca\",\n        \"total_amount\": \"441.05\",\n        \"status\": \"expired\",\n        \"tracking_number\": null,\n        \"created_at\": \"2026-08-29T09:50:18.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:54.000000Z\",\n        \"carrier_id\": null,\n        \"shipping_cost\": null\n    },\n    {\n        \"id\": 6,\n        \"merchant_id\": 1,\n        \"customer_name\": \"Cornell Spencer PhD\",\n        \"customer_phone\": \"0619278029\",\n        \"city\": \"Oujda\",\n        \"total_amount\": \"1491.50\",\n        \"status\": \"pending\",\n        \"tracking_number\": null,\n        \"created_at\": \"2026-11-13T13:09:11.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:54.000000Z\",\n        \"carrier_id\": null,\n        \"shipping_cost\": null\n    },\n    {\n        \"id\": 7,\n        \"merchant_id\": 1,\n        \"customer_name\": \"Alycia Larson\",\n        \"customer_phone\": \"0628180717\",\n        \"city\": \"Tanger\",\n        \"total_amount\": \"967.90\",\n        \"status\": \"returned\",\n        \"tracking_number\": \"GM57821293\",\n        \"created_at\": \"2026-11-15T22:45:57.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:54.000000Z\",\n        \"carrier_id\": 2,\n        \"shipping_cost\": \"35.00\"\n    },\n    {\n        \"id\": 8,\n        \"merchant_id\": 1,\n        \"customer_name\": \"Maegan Muller PhD\",\n        \"customer_phone\": \"0649304270\",\n        \"city\": \"Tanger\",\n        \"total_amount\": \"83.70\",\n        \"status\": \"pending\",\n        \"tracking_number\": null,\n        \"created_at\": \"2026-11-14T23:46:10.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:54.000000Z\",\n        \"carrier_id\": null,\n        \"shipping_cost\": null\n    },\n    {\n        \"id\": 9,\n        \"merchant_id\": 1,\n        \"customer_name\": \"Erick Deckow PhD\",\n        \"customer_phone\": \"0600451381\",\n        \"city\": \"Tanger\",\n        \"total_amount\": \"784.91\",\n        \"status\": \"delivered\",\n        \"tracking_number\": \"GS77454007\",\n        \"created_at\": \"2026-09-29T08:35:44.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:54.000000Z\",\n        \"carrier_id\": 1,\n        \"shipping_cost\": \"40.00\"\n    },\n    {\n        \"id\": 10,\n        \"merchant_id\": 1,\n        \"customer_name\": \"Lilly Franecki\",\n        \"customer_phone\": \"0684098564\",\n        \"city\": \"Marrakech\",\n        \"total_amount\": \"214.41\",\n        \"status\": \"shipped\",\n        \"tracking_number\": \"DV84547628\",\n        \"created_at\": \"2026-09-17T00:23:30.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:54.000000Z\",\n        \"carrier_id\": 3,\n        \"shipping_cost\": \"35.00\"\n    },\n    {\n        \"id\": 11,\n        \"merchant_id\": 1,\n        \"customer_name\": \"Antoinette Haley DVM\",\n        \"customer_phone\": \"0623455077\",\n        \"city\": \"Casablanca\",\n        \"total_amount\": \"1085.90\",\n        \"status\": \"pending\",\n        \"tracking_number\": null,\n        \"created_at\": \"2026-10-17T15:49:46.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:54.000000Z\",\n        \"carrier_id\": null,\n        \"shipping_cost\": null\n    },\n    {\n        \"id\": 12,\n        \"merchant_id\": 1,\n        \"customer_name\": \"Howell Hintz\",\n        \"customer_phone\": \"0602016152\",\n        \"city\": \"Marrakech\",\n        \"total_amount\": \"352.07\",\n        \"status\": \"expired\",\n        \"tracking_number\": null,\n        \"created_at\": \"2026-10-13T12:46:50.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:54.000000Z\",\n        \"carrier_id\": null,\n        \"shipping_cost\": null\n    },\n    {\n        \"id\": 13,\n        \"merchant_id\": 1,\n        \"customer_name\": \"Anna Tillman\",\n        \"customer_phone\": \"0602511612\",\n        \"city\": \"Casablanca\",\n        \"total_amount\": \"105.86\",\n        \"status\": \"cancelled\",\n        \"tracking_number\": null,\n        \"created_at\": \"2026-08-31T00:30:41.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:55.000000Z\",\n        \"carrier_id\": null,\n        \"shipping_cost\": null\n    },\n    {\n        \"id\": 14,\n        \"merchant_id\": 1,\n        \"customer_name\": \"Mr. Alek Boehm\",\n        \"customer_phone\": \"0617756683\",\n        \"city\": \"Agadir\",\n        \"total_amount\": \"1478.13\",\n        \"status\": \"delivered\",\n        \"tracking_number\": \"ZY35193302\",\n        \"created_at\": \"2026-10-09T05:05:26.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:55.000000Z\",\n        \"carrier_id\": 3,\n        \"shipping_cost\": \"40.00\"\n    },\n    {\n        \"id\": 15,\n        \"merchant_id\": 1,\n        \"customer_name\": \"Bernadine Watsica\",\n        \"customer_phone\": \"0647053002\",\n        \"city\": \"Laayoune\",\n        \"total_amount\": \"1169.41\",\n        \"status\": \"returned\",\n        \"tracking_number\": \"KX23248241\",\n        \"created_at\": \"2026-10-15T16:17:12.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:55.000000Z\",\n        \"carrier_id\": 3,\n        \"shipping_cost\": \"60.00\"\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Create_Order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {\r",
+                  "    pm.collectionVariables.set(\"order_id\", pm.response.json().id);\r",
+                  "}\r",
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"customer_name\": \"John Doe\",\r\n  \"customer_phone\": \"0635887928\",\r\n  \"city\": \"Casablanca\",\r\n  \"total_amount\": 12028.5\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Creates an order by supplying required column values in the body of the request :\n\nExample :{ \"customer_name\": \"John Doe\", \"customer_phone\": \"0135887928\", \"city\": \"casablanca\", \"total_amount\": 12028.5}\n\nNew orders start with a \"pending\" status and have no assigned carrier"
+          },
+          "response": [
+            {
+              "name": "Create_Order",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"customer_name\": \"John Doe\",\r\n  \"customer_phone\": \"0635887928\",\r\n  \"city\": \"Casablanca\",\r\n  \"total_amount\": 12028.5\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/orders",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 12:37:19 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 176,\n    \"merchant_id\": 1,\n    \"customer_name\": \"John Doe\",\n    \"customer_phone\": \"0635887928\",\n    \"city\": \"Casablanca\",\n    \"total_amount\": \"12028.50\",\n    \"status\": \"pending\",\n    \"tracking_number\": null,\n    \"created_at\": \"2026-11-24T12:37:19.000000Z\",\n    \"updated_at\": \"2026-11-24T12:37:19.000000Z\",\n    \"carrier_id\": null,\n    \"shipping_cost\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "Assign_Carrier",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"carrier_id\":1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/orders/{{order_id}}/carrier",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders",
+                "{{order_id}}",
+                "carrier"
+              ]
+            },
+            "description": "Assing a carrier to an order by specifying the order id in the route's url:\n\n/orders/{id}/carrier\n\nand the carrier id in the body of the request :\n\n{ \"carrier_id\":1  \n}\n\nOnly orders with a \"pending\" or \"confirmed\" status can change carrier"
+          },
+          "response": [
+            {
+              "name": "Assign_Carrier",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"carrier_id\":1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/orders/{{order_id}}/carrier",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "orders",
+                    "{{order_id}}",
+                    "carrier"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 10:48:51 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 176,\n    \"merchant_id\": 1,\n    \"customer_name\": \"John Doe\",\n    \"customer_phone\": \"0135887928\",\n    \"city\": \"casablanca\",\n    \"total_amount\": \"12028.50\",\n    \"status\": \"pending\",\n    \"tracking_number\": null,\n    \"created_at\": \"2026-11-24T10:48:25.000000Z\",\n    \"updated_at\": \"2026-11-24T10:48:51.000000Z\",\n    \"carrier_id\": 1,\n    \"shipping_cost\": \"35.00\",\n    \"carrier\": {\n        \"id\": 1,\n        \"name\": \"Amana\",\n        \"created_at\": \"2026-11-24T10:42:51.000000Z\",\n        \"updated_at\": \"2026-11-24T10:42:51.000000Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update_Status_Non_Owned",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 403\", () => pm.response.to.have.status(403));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"status\": \"confirmed\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/orders/17/status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders",
+                "17",
+                "status"
+              ]
+            },
+            "description": "Updates the status of an order by specifying its id in the route's url:\n\n/orders/{id}/status\n\nand the next status to transition to in the body of the request :\n\n{ \"status\": \"confirmed\"}\n\nThis request is expected to trigger a 403  \nforbiden error to simulate if the current authenticated merchant is trying to update an order that does not belong to him"
+          },
+          "response": [
+            {
+              "name": "Update_Status_Non_Owned",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{ \"status\": \"confirmed\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/orders/17/status",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "orders",
+                    "17",
+                    "status"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 12:56:15 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"This order does not belong to you.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update_Status_Illegal_Transition",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 422\", () => pm.response.to.have.status(422));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"delivered\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/orders/{{order_id}}/status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders",
+                "{{order_id}}",
+                "status"
+              ]
+            },
+            "description": "Updates the status of an order by specifying its id in the route's url:\n\n/orders/{id}/status\n\nand the next status to transition to in the body of the request :\n\n{ \"status\": \"delivered\"}\n\nStatuses will only change if the transition is allowed\n\nExample: This request is expected to trigger a 422 error demonstrating the state machine using the transition Pending → Delivered that is rejected; see \"allowed\" in the response"
+          },
+          "response": [
+            {
+              "name": "Update_Status_Illegal_Transition",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"delivered\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/orders/{{order_id}}/status",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "orders",
+                    "{{order_id}}",
+                    "status"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 10:49:11 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Cannot change order status from pending to delivered.\",\n    \"from\": \"pending\",\n    \"to\": \"delivered\",\n    \"allowed\": [\n        \"confirmed\",\n        \"cancelled\",\n        \"expired\"\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update_Status_Legal_Transition",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"confirmed\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/orders/{{order_id}}/status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders",
+                "{{order_id}}",
+                "status"
+              ]
+            },
+            "description": "Updates the status of an order by specifying its id in the route's url:\n\n/orders/{id}/status\n\nand the next status to transition to in the body of the request :\n\n{ \"status\": \"confirmed\"}\n\nStatuses will only change if the transition is allowed\n\nExample: This request is expected to return a 200 success response since the transition Pending → Confirmed is allowed."
+          },
+          "response": [
+            {
+              "name": "Update_Status_Legal_Transition",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"confirmed\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/orders/{{order_id}}/status",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "orders",
+                    "{{order_id}}",
+                    "status"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 10:49:37 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 176,\n    \"merchant_id\": 1,\n    \"customer_name\": \"John Doe\",\n    \"customer_phone\": \"0135887928\",\n    \"city\": \"casablanca\",\n    \"total_amount\": \"12028.50\",\n    \"status\": \"confirmed\",\n    \"tracking_number\": null,\n    \"created_at\": \"2026-11-24T10:48:25.000000Z\",\n    \"updated_at\": \"2026-11-24T10:49:37.000000Z\",\n    \"carrier_id\": 1,\n    \"shipping_cost\": \"35.00\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update_Status_Ship_Without_Tracking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 422\", () => pm.response.to.have.status(422));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"shipped\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/orders/{{order_id}}/status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders",
+                "{{order_id}}",
+                "status"
+              ]
+            },
+            "description": "Updates the status of an order by specifying its id in the route's url:\n\n/orders/{id}/status\n\nand the next status to transition to in the body of the request :\n\n{ \"status\": \"shipped\"}\n\nStatuses will only change if the transition is allowed\n\nExample: This request is expected to trigger a 422 error demonstrating the business rule that rejects the transition Confirmed→ Shipped if there was no tracking number in the body."
+          },
+          "response": [
+            {
+              "name": "Update_Status_Ship_Without_Tracking",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"shipped\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/orders/{{order_id}}/status",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "orders",
+                    "{{order_id}}",
+                    "status"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 10:50:09 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"A tracking number is required before an order can be shipped\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update_Status_Ship_With_Tracking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"shipped\",\r\n  \"tracking_number\":\"Q123456789\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/orders/{{order_id}}/status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders",
+                "{{order_id}}",
+                "status"
+              ]
+            },
+            "description": "Updates the status of an order by specifying its id in the route's url:\n\n/orders/{id}/status\n\nand the next status to transition to in the body of the request :\n\n{ \"status\": \"shipped\", \"tracking_number\":\"Q123456789\"  \n}\n\nStatuses will only change if the transition is allowed\n\nExample: This request is expected to return a 200 success response since the transition Confirmed→ Shipped is allowed if the tracking number is supplied."
+          },
+          "response": [
+            {
+              "name": "Update_Status_Ship_With_Tracking",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"shipped\",\r\n  \"tracking_number\":\"Q123456789\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/orders/{{order_id}}/status",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "orders",
+                    "{{order_id}}",
+                    "status"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 10:51:03 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 176,\n    \"merchant_id\": 1,\n    \"customer_name\": \"John Doe\",\n    \"customer_phone\": \"0135887928\",\n    \"city\": \"casablanca\",\n    \"total_amount\": \"12028.50\",\n    \"status\": \"shipped\",\n    \"tracking_number\": \"Q123456789\",\n    \"created_at\": \"2026-11-24T10:48:25.000000Z\",\n    \"updated_at\": \"2026-11-24T10:51:03.000000Z\",\n    \"carrier_id\": 1,\n    \"shipping_cost\": \"35.00\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Stats",
+      "item": [
+        {
+          "name": "Status_Breakdown",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/stats/status-breakdown",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "stats",
+                "status-breakdown"
+              ]
+            },
+            "description": "Returns the count and percentages of order statuses that the current authenticated merchant owns"
+          },
+          "response": [
+            {
+              "name": "Status_Breakdown",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/stats/status-breakdown",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "stats",
+                    "status-breakdown"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 10:51:26 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"total\": 16,\n    \"breakdown\": {\n        \"pending\": {\n            \"count\": 4,\n            \"percentage\": 25\n        },\n        \"confirmed\": {\n            \"count\": 1,\n            \"percentage\": 6.3\n        },\n        \"shipped\": {\n            \"count\": 2,\n            \"percentage\": 12.5\n        },\n        \"delivered\": {\n            \"count\": 3,\n            \"percentage\": 18.8\n        },\n        \"returned\": {\n            \"count\": 3,\n            \"percentage\": 18.8\n        },\n        \"cancelled\": {\n            \"count\": 1,\n            \"percentage\": 6.3\n        },\n        \"expired\": {\n            \"count\": 2,\n            \"percentage\": 12.5\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Shipping_Cost",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/stats/shipping-costs?period=year",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "stats",
+                "shipping-costs"
+              ],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "year"
+                }
+              ]
+            },
+            "description": "Returns the total daily, monthly or yearly shipping cost that the current authenticated merchant owns\n\nThis endpoint handles an optional parameter \"?period\" that allows users to specify the timeframe in the query by choosing one of the values : day|month|year\n\nIn case the endpoint is called without ?period the default value is \"month\""
+          },
+          "response": [
+            {
+              "name": "Shipping_Cost",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/stats/shipping-costs",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "stats",
+                    "shipping-costs"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 10:51:59 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"period\": \"2026-09\",\n        \"total\": \"110.00\"\n    },\n    {\n        \"period\": \"2026-10\",\n        \"total\": \"100.00\"\n    },\n    {\n        \"period\": \"2026-11\",\n        \"total\": \"105.00\"\n    }\n]"
+            },
+            {
+              "name": "Shipping_Cost",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/stats/shipping-costs?period=year",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "stats",
+                    "shipping-costs"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "year",
+                      "sortOrder": 0
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 10:52:24 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"period\": \"2026\",\n        \"total\": \"315.00\"\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Financial_Summary",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/stats/financial-summary",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "stats",
+                "financial-summary"
+              ]
+            },
+            "description": "Returns the calculated financial summary of the current authenticated merchant, this includes the total revenue, shipping paid, net_cash, delivered_count, returned_count and success rate"
+          },
+          "response": [
+            {
+              "name": "Financial_Summary",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/stats/financial-summary",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "stats",
+                    "financial-summary"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000",
+                  "type": "text"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close",
+                  "type": "text"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30",
+                  "type": "text"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private",
+                  "type": "text"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 24 Nov 2026 10:52:46 GMT",
+                  "type": "text"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "type": "text"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"revenue\": 2846.49,\n    \"shipping_paid\": 245,\n    \"net_cash\": 2601.49,\n    \"delivered_count\": 3,\n    \"returned_count\": 3,\n    \"success_rate\": 50\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Logout",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/logout",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "logout"
+          ]
+        },
+        "description": "Logs out an authenticated merchant using the token supplied in the header"
+      },
+      "response": [
+        {
+          "name": "Logout",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "logout"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "JSON",
+          "header": [
+            {
+              "key": "Host",
+              "value": "localhost:8000",
+              "type": "text"
+            },
+            {
+              "key": "Connection",
+              "value": "close",
+              "type": "text"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.3.30",
+              "type": "text"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private",
+              "type": "text"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 24 Nov 2026 10:45:31 GMT",
+              "type": "text"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*",
+              "type": "text"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Logged out\"\n}"
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "order_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
